@@ -305,55 +305,56 @@ function Wumpus( ) {
 		this._log( );
 
 		input = input.toLowerCase( );
-		if ('' != input) {
-			// deal with instructions
-			if (0 > this.instruct) {
-				if ('n' == input) {
-					this.instruct = 0;
-					this.choose_map( );
-					return;
-				}
-				else {
-					this.instruct = 1;
-					this.instructions( );
-					return;
-				}
-			} // end run instructions
+		
+		// deal with instructions
+		if (0 > this.instruct) {
+			if ('n' == input) {
+				this.instruct = 0;
+				this.choose_map( );
+				return;
+			}
+			else {
+				this.instruct = 1;
+				this.instructions( );
+				return;
+			}
+		} // end run instructions
 
-			// deal with choosing map
-			if (this.choosing) {
-				if (input != parseInt(input)) {
-					input = 0;
-				}
-				input = parseInt(input);
+		// deal with choosing map
+		if (this.choosing) {
+			if (input != parseInt(input)) {
+				input = 0;
+			}
+			input = parseInt(input);
 
-				if ((0 > input) || (5 < input)) {
-					this.print('ERROR');
-					this.choose_map( );
-					return;
-				}
+			if ((0 > input) || (5 < input)) {
+				this.print('ERROR');
+				this.choose_map( );
+				return;
+			}
 
-				this.cave = input;
-				this.choosing = false;
+			this.cave = input;
+			this.choosing = false;
+			this.show_position( );
+			return;
+		} // end run map choosing
+
+		// deal with resets
+		if (this.resetting) {
+			this.resetting = false;
+
+			if ('y' == input || '' == input) {
+				this.setup_cave(false);
 				this.show_position( );
-				return;
-			} // end run map choosing
+			}
+			else {
+				this.startup( );
+			}
 
-			// deal with resets
-			if (this.resetting) {
-				this.resetting = false;
-
-				if ('y' == input) {
-					this.setup_cave(false);
-					this.show_position( );
-				}
-				else {
-					this.startup( );
-				}
-
-				return;
-			} // end resetting
-
+			return;
+		} // end resetting
+		
+		if ('' != input) {
 			// deal with movements
 			if (this.moving) {
 				if (input != parseInt(input) || 1 > input || 20 < input || ! this._adj(this.hunter, input)) {
