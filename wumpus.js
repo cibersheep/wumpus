@@ -476,7 +476,9 @@ function Wumpus( ) {
 						else {
 							--this.arrows;
 						}
-
+						
+						this.num_rooms = undefined;
+						this.rooms_shot = "";
 						this.shooting = false;
 						this.show_position( );
 						return;
