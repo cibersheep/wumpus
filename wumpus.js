@@ -234,6 +234,8 @@ function Wumpus( ) {
 		this.moving = false;
 		this.shooting = false;
 		this.resetting = false;
+		this.num_rooms = false;
+		this.rooms_shot = [];
 
 		if (undefined === reset) {
 			reset = true;
@@ -477,8 +479,8 @@ function Wumpus( ) {
 							--this.arrows;
 						}
 						
-						this.num_rooms = undefined;
-						this.rooms_shot = "";
+						this.num_rooms = false;
+						this.rooms_shot = [];
 						this.shooting = false;
 						this.show_position( );
 						return;
